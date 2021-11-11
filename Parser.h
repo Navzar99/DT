@@ -38,7 +38,7 @@ void printResponse(uint8_t response);
 #define FALSE 0
 #define TRUE 1
 
-typedef struct
+typedef struct  // test
 {
     uint8_t ok; // stores "0" or "1"
     uint8_t data[AT_COMMAND_MAX_LINES][AT_COMMAND_MAX_LINE_SIZE + 1];  // instruction (linile cu +)
