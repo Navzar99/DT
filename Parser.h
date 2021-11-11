@@ -42,7 +42,7 @@ typedef struct
 {
     uint8_t ok; // stores "0" or "1"
     uint8_t data[AT_COMMAND_MAX_LINES][AT_COMMAND_MAX_LINE_SIZE + 1];  // instruction (linile cu +)
-    uint32_t line_count;  // string
+    uint32_t line_count;
     uint32_t line_size;
 }AT_COMMAND_DATA;
 

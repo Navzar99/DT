@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Faculta/Year 4/Digital Telecomunication/Project/Parser.c
+stdio.h
+-
+Parser.h
+D:/Faculta/Year 4/Digital Telecomunication/Project/Parser.h
+
+D:/Faculta/Year 4/Digital Telecomunication/Project/Parser.h
+stdint.h
+-
+
+D:/Faculta/Year 4/Digital Telecomunication/Project/Testing.h
+
+D:/Faculta/Year 4/Digital Telecomunication/Project/main.c
+stdio.h
+-
+string.h
+-
+dirent.h
+-
+stdlib.h
+-
+Parser.h
+D:/Faculta/Year 4/Digital Telecomunication/Project/Parser.h
+Testing.h
+D:/Faculta/Year 4/Digital Telecomunication/Project/Testing.h
+

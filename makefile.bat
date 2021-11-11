@@ -12,8 +12,8 @@ gcc -c *.c
 gcc -o program *.o
 del *.o
 program.exe Tests/at_simple_error_ok.txt
-program.exe Tests/test_file_simple_at_ok.txt
-::program.exe Tests/test_file_csq_ok.txt
+::program.exe Tests/test_file_simple_at_ok.txt
+program.exe Tests/test_file_csq_ok.txt
 ::program.exe Tests/test_file_copn_ok.txt
 ::program.exe Tests/test_file_csq_not_ok_1.txt
 ::program.exe Tests/test_file_csq_not_ok_2.txt

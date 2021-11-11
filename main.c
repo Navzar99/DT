@@ -66,6 +66,7 @@ void mainFunction(int argc, char **argv)
     char fileName[fileNameLength];
     strcpy(fileName, argv[i]);
     printf("%s\n", fileName);
+
     parseFile(fileName);
     printf("\n\n");
 
