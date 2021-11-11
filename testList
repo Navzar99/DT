@@ -1,0 +1,10 @@
+Tests/at_simple_error_ok.txt                    OK
+Tests/test_file_copn_ok.txt                     OK
+Tests/test_file_csq_not_ok_1.txt                NOK
+Tests/test_file_csq_not_ok_2.txt                NOK
+Tests/test_file_csq_not_ok_3.txt                NOK
+Tests/test_file_csq_not_ok_4_no_cr_present.txt  NOK
+Tests/test_file_csq_ok.txt                      OK
+Tests/test_file_simple_at_ok.txt                OK
+
+ALL: Tests/at_simple_error_ok.txt Tests/test_file_copn_ok.txt Tests/test_file_csq_not_ok_1.txt Tests/test_file_csq_not_ok_2.txt Tests/test_file_csq_not_ok_3.txt Tests/test_file_csq_not_ok_4_no_cr_present.txt Tests/test_file_csq_ok.txt Tests/test_file_simple_at_ok.txt
