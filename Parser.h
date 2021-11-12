@@ -11,7 +11,6 @@
 #define LF 10
 
 
-
 typedef enum
 {
     STATE_MACHINE_NOT_READY,        // 0
@@ -22,7 +21,7 @@ typedef enum
 STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character);
 void printState(uint8_t current_character, uint32_t st);
 void printResponse(uint8_t response);
-// Data structure
+
 
 /*
  * If line size is >100, parse without storing the data
@@ -33,8 +32,8 @@ void printResponse(uint8_t response);
  * Obs: every line ends with \0 in the data structure
  */
 
-#define AT_COMMAND_MAX_LINES 1000      // max mem for microcontroller (100)
-#define AT_COMMAND_MAX_LINE_SIZE 1000  // line size (128)
+#define AT_COMMAND_MAX_LINES 10      // max mem for microcontroller (100)
+#define AT_COMMAND_MAX_LINE_SIZE 128  // line size (128)
 #define FALSE 0
 #define TRUE 1
 
@@ -42,10 +41,9 @@ typedef struct  // test
 {
     uint8_t ok; // stores "0" or "1"
     uint8_t data[AT_COMMAND_MAX_LINES][AT_COMMAND_MAX_LINE_SIZE + 1];  // instruction (linile cu +)
-    uint32_t line_count;
-    uint32_t line_size;
+    uint8_t line_count;
+    uint8_t line_size;
 }AT_COMMAND_DATA;
-
 
 
 #endif //PROJECT_PARSER_H

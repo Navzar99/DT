@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "Parser.h"
-#include "Testing.h" // TODO: comment before submitting
+//#include "Testing.h" // TODO: comment before submitting
 
 
 void printArgs(int argc, char **argv)
@@ -16,26 +16,9 @@ void printArgs(int argc, char **argv)
     printf("\n\n");
 }
 
-// TODO: Implement in Parser.h
-//AT_COMMAND_DATA dataStructure;
-//void storeInDataStructure(uint8_t character)
-//{
-//    if(dataStructure.line_size < AT_COMMAND_MAX_LINE_SIZE && dataStructure.line_count<AT_COMMAND_MAX_LINES)
-//        dataStructure.data[dataStructure.line_count][dataStructure.line_size] = character;
-//
-//    if (character == LF)
-//    {
-//        dataStructure.line_size=0;
-//        dataStructure.line_count++;
-//    }
-//    else
-//    {
-//        dataStructure.line_size++;
-//    }
-//}
-
 void parseFile(char *fileName)
 {
+    printf("File name: %s", fileName);
     FILE *file = fopen(fileName, "rb");
     size_t n = 0;
 
@@ -66,11 +49,8 @@ void mainFunction(int argc, char **argv)
     char fileName[fileNameLength];
     strcpy(fileName, argv[i]);
     printf("%s\n", fileName);
-
     parseFile(fileName);
     printf("\n\n");
-
-    // TODO: implement this in the final version
 }
 
 void test()
@@ -80,6 +60,7 @@ void test()
 
 int main(int argc, char *argv[])
 {
+
     mainFunction(argc, argv);
     // getFilesFromDir();  // TODO: comment before submitting
 

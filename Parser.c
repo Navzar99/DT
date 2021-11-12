@@ -3,6 +3,8 @@
 //
 
 #include <stdio.h>
+#include <string.h>
+
 #include "Parser.h"
 
 void printResponse(uint8_t response)
@@ -39,11 +41,28 @@ AT_COMMAND_DATA dataStructure = {0};
 void printDataStructure()
 {
     printf("start of ds:\n");
-    for (uint32_t i = 0; i < AT_COMMAND_MAX_LINES; ++i)
+
+    for (uint32_t i = 0;
+        (i < AT_COMMAND_MAX_LINES) && (strcmp((char*)dataStructure.data[i], "\0")!=0);
+        ++i)
     {
-        printf("%s", dataStructure.data[i]);
+        printf("%u\t%s", i, dataStructure.data[i]);
     }
     printf("\nend of ds.");
+}
+
+void printDataStructureInFile()
+{
+    FILE *fp = fopen("output.txt", "wb");
+
+    for (uint32_t i = 0;
+         (i < AT_COMMAND_MAX_LINES) && (strcmp((char*)dataStructure.data[i], "\0")!=0);
+         ++i)
+    {
+        fprintf(fp, "%s", dataStructure.data[i]);
+    }
+
+    fclose(fp);
 }
 void resetDataStructure()
 {
@@ -53,7 +72,7 @@ void initializeDataStructure()
 {
     resetDataStructure();
     dataStructure.line_count=0;
-    dataStructure.line_size=0;
+    dataStructure.line_size=1;
 }
 void addCharToDataStructure(uint8_t current_char)
 {
@@ -76,9 +95,19 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
     printState(current_character, state);
 
     if (state==1)
+    {
         initializeDataStructure();
-    dataStructure.line_size++;
-    addCharToDataStructure(current_character);
+
+    }
+    else
+    {
+        dataStructure.line_size++;
+    }
+    if(dataStructure.line_size<AT_COMMAND_MAX_LINE_SIZE && dataStructure.line_count<AT_COMMAND_MAX_LINES-1)
+        addCharToDataStructure(current_character);
+    else if (dataStructure.line_size==AT_COMMAND_MAX_LINE_SIZE+1)
+        lineEndInDataStructure();
+
     switch (state)
     {
         case 1:
@@ -167,6 +196,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 state = 1;
                 lineEndInDataStructure();
                 printDataStructure();
+                printDataStructureInFile();
                 return STATE_MACHINE_READY_OK;
             }
             else
@@ -253,6 +283,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 state = 1;
                 lineEndInDataStructure();
                 printDataStructure();
+                printDataStructureInFile();
                 return STATE_MACHINE_READY_OK;
             }
             else
@@ -284,7 +315,8 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if (current_character == LF)
             {
                 state = 26;
-
+                lineEndInDataStructure();
+                newlineInDataStructure();
             }
             else
             {
@@ -303,8 +335,6 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             else if (current_character == '+')
             {
                 state = 24;
-                lineEndInDataStructure();
-                newlineInDataStructure();
             }
             else
             {
@@ -318,6 +348,8 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if (current_character == LF)
             {
                 state = 28;
+                lineEndInDataStructure();
+                newlineInDataStructure();
 
             }
             else
@@ -332,14 +364,10 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if (current_character == 'O')
             {
                 state = 4;
-                lineEndInDataStructure();
-                newlineInDataStructure();
             }
             else if (current_character == 'E')
             {
                 state = 14;
-                lineEndInDataStructure();
-                newlineInDataStructure();
             }
             else
             {
