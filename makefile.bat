@@ -19,4 +19,4 @@ del *.o
 ::program.exe Tests/test_file_csq_not_ok_2.txt
 ::program.exe Tests/test_file_csq_not_ok_3.txt
 ::program.exe Tests/test_file_csq_not_ok_4_no_cr_present.txt
-::program.exe
+program.exe Tests/multiple_commgitands.txt

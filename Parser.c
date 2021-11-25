@@ -189,6 +189,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             }
             break;
         }
+        // Final state
         case 6:
         {
             if (current_character == LF)
@@ -197,6 +198,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 lineEndInDataStructure();
                 printDataStructure();
                 printDataStructureInFile();
+				resetDataStructure();
                 return STATE_MACHINE_READY_OK;
             }
             else
@@ -276,6 +278,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             }
             break;
         }
+        // Terminal state
         case 19:
         {
             if (current_character == LF)
@@ -284,6 +287,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 lineEndInDataStructure();
                 printDataStructure();
                 printDataStructureInFile();
+				resetDataStructure();
                 return STATE_MACHINE_READY_OK;
             }
             else

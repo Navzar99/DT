@@ -1,0 +1,5 @@
+
++COPN: "36320", "DIGICEL"
++COPN: "90121", "Seanet"
+
+OK

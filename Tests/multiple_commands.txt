@@ -1,0 +1,36 @@
+
+OK
+
++CSQ: 21,0
+
+OK
+
+OK
+
++COPN: "36320", "DIGICEL"
++COPN: "90121", "Seanet"
+
+OK
+
+ERROR
+
++COPS: 0,0,"Vodafone RO",2
+
+OK
+
++COPS: 0,0,"Vodafone RO",2
+
+ERROR
+
++CREG: 1,1
+
+OK
+
++CREG: 1,1
+
+ERROR
+
++COPN: "36320", "DIGICEL"
++COPN: "90121", "Seanet"
+
+OK
