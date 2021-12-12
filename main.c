@@ -18,7 +18,7 @@ void printArgs(int argc, char **argv)
 
 void parseFile(char *fileName)
 {
-    printf("File name: %s", fileName);
+    printf("File name: %s\n", fileName);
     FILE *file = fopen(fileName, "rb");
     size_t n = 0;
 
@@ -33,7 +33,7 @@ void parseFile(char *fileName)
 
     while ((ch = fgetc(file)) != EOF)
     {
-        response = at_command_parse(ch);
+        response = at_command_parse(ch, 1);
     }
     printResponse(response);
 }

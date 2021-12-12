@@ -25,14 +25,19 @@ void printResponse(uint8_t response)
     }
 }
 
+uint8_t FLAG_Print = 0;
+
 void printState(uint8_t current_character, uint32_t st)
 {
-    if (current_character == CR)
-        printf("char: CR  state: %d\n", st);
-    else if (current_character == LF)
-        printf("char: LF  state: %d\n", st);
-    else
-        printf("char: %c   state: %d\n", current_character, st);
+	if (FLAG_Print != 0)
+	{
+		if (current_character == CR)
+			printf("char: CR  state: %d\n", st);
+		else if (current_character == LF)
+			printf("char: LF  state: %d\n", st);
+		else
+			printf("char: %c   state: %d\n", current_character, st);
+	}
 }
 
 
@@ -40,29 +45,35 @@ AT_COMMAND_DATA dataStructure = {0};
 
 void printDataStructure()
 {
-    printf("start of ds:\n");
+	if (FLAG_Print != 0)
+	{
+		printf("start of ds:\n");
 
-    for (uint32_t i = 0;
-        (i < AT_COMMAND_MAX_LINES) && (strcmp((char*)dataStructure.data[i], "\0")!=0);
-        ++i)
-    {
-        printf("%u\t%s", i, dataStructure.data[i]);
-    }
-    printf("\nend of ds.");
+		for (uint32_t i = 0;
+			 (i < AT_COMMAND_MAX_LINES) && (strcmp((char*)dataStructure.data[i], "\0") != 0);
+			 ++i)
+		{
+			printf("%u\t%s", i, dataStructure.data[i]);
+		}
+		printf("\nend of ds.");
+	}
 }
 
 void printDataStructureInFile()
 {
-    FILE *fp = fopen("output.txt", "wb");
+	if (FLAG_Print != 0)
+	{
+		FILE* fp = fopen("output.txt", "wb");
 
-    for (uint32_t i = 0;
-         (i < AT_COMMAND_MAX_LINES) && (strcmp((char*)dataStructure.data[i], "\0")!=0);
-         ++i)
-    {
-        fprintf(fp, "%s", dataStructure.data[i]);
-    }
+		for (uint32_t i = 0;
+			 (i < AT_COMMAND_MAX_LINES) && (strcmp((char*)dataStructure.data[i], "\0") != 0);
+			 ++i)
+		{
+			fprintf(fp, "%s", dataStructure.data[i]);
+		}
 
-    fclose(fp);
+		fclose(fp);
+	}
 }
 void resetDataStructure()
 {
@@ -89,7 +100,7 @@ void lineEndInDataStructure()
 }
 
 
-STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
+STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character, uint8_t FLAG_isSpecialTransmition)
 {
     static uint32_t state = 1;
     printState(current_character, state);
@@ -154,6 +165,10 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             {
                 state = 24;
             }
+            else if (FLAG_isSpecialTransmition != 0)
+            {
+            	state = 24;
+            }
             else
             {
                 state = 1;
@@ -168,6 +183,10 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 state = 5;
 
             }
+			else if (FLAG_isSpecialTransmition != 0)
+			{
+				state = 24;
+			}
             else
             {
                 state = 1;
@@ -215,6 +234,10 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 state = 15;
 
             }
+			else if (FLAG_isSpecialTransmition != 0)
+			{
+				state = 24;
+			}
             else
             {
                 state = 1;
@@ -227,8 +250,11 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if (current_character == 'R')
             {
                 state = 16;
-
             }
+			else if (FLAG_isSpecialTransmition != 0)
+			{
+				state = 24;
+			}
             else
             {
                 state = 1;
@@ -243,6 +269,10 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 state = 17;
 
             }
+			else if (FLAG_isSpecialTransmition != 0)
+			{
+				state = 24;
+			}
             else
             {
                 state = 1;

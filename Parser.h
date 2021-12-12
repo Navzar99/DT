@@ -18,7 +18,7 @@ typedef enum
     STATE_MACHINE_READY_WITH_ERROR  // 2
 }STATE_MACHINE_RETURN_VALUE;
 
-STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character);
+STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character, uint8_t FLAG_isSpecialTransmition);
 void printState(uint8_t current_character, uint32_t st);
 void printResponse(uint8_t response);
 
